@@ -5,8 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var cookie = require('cookie');
 var logger = require('morgan');
-var session = require('express-session');
-const store = new session.MemoryStore();	//not meant for production!
+
 
 
 const mysql = require('mysql')
@@ -36,63 +35,24 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.set('trust proxy', 1);
-app.use(session({ secret: 'keyboardcat', resave: false,
-  saveUninitialized: false,
-  store: store}));
+
 
 //app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 
 app.get('/', (req, res) => {
 	
-	/*
-  connection.connect()
-	connection.query('SELECT * FROM albums', (err, rows, fields) => {
-	  if (err) throw err
-	  var something = rows[0]
-	  console.log('The solution is: ', something.name)
-	})
 	
-  connection.end()
-  */
   //res.sendFile('public/hello.html' , { root : __dirname});
   res.sendFile('public/pages/IrohHomePage.html' , { root : __dirname});
 })
 
 app.get('/SignUp', (req, res) => {
-	/*
-  connection.connect()
-	connection.query('SELECT * FROM albums', (err, rows, fields) => {
-	  if (err) throw err
-	  var something = rows[0]
-	  console.log('The solution is: ', something.name)
-	})
 	
-  connection.end()
-  */
   res.sendFile('public/pages/IrohSignUpPage.html' , { root : __dirname});
 })
 
-app.get('/GetUserName', (req, res) => {
-  
-  
 
-  
-  const obj = JSON.parse(JSON.stringify(store.sessions)); // abc = [Object: null prototype] { id: '123' }
-  
-  
-  
-  var something = 0;
-  
-  
-  for (let parameter in obj) {
-    something = obj[parameter];
-	something = JSON.parse(something);
-	
-  }
-  
-  res.send(something.user);
-})
 
 app.get('/MainPage', (req, res) => {
 	
@@ -105,7 +65,7 @@ app.get('/GetMostRecentFivePosts', (req, res) => {
 	connection.query('SELECT * FROM posts ORDER BY postDate DESC LIMIT 5;', (err, rows, fields) => {
 	  if (err) throw err
 	  
-	  console.log(rows);
+	  
 	  
 	  res.json(rows);
 	  
@@ -141,18 +101,14 @@ app.get('/LogUserIn/:username/:userpassword', (req, res) => {
 				  return;
 			  }
 				  
-			  
+			  console.log(rows);
 			  if (rows[0].userName == userName && rows[0].userPassword == userPassword){
 				  //user is valid, sign in
 				  
 				  responseToUser = "Log In Successful";
 				  
 				  console.log(userName);
-				  req.session.user = userName;
 				  
-				  req.session.save();
-				  
-				  console.log(req.session.user);
 				  res.send(responseToUser).end();
 			  }
 			  else {
@@ -222,9 +178,7 @@ app.get('/createNewUser/:userName/:password', (req, res) => {
 			
 			connection.query('INSERT INTO irohuser (userName, userPassword) VALUES ("'+passedUserName+'","'+passedPassword+'");', (err, rows, fields) => {
 				if (err) throw res.send('an sql error occured');
-				req.session.user = userName;
-				  
-				req.session.save();
+				
 				res.send("Success");
 			
 			})
@@ -241,22 +195,13 @@ app.get('/createNewUser/:userName/:password', (req, res) => {
 	
 });
 
-app.post('/posts/:title/:body', (req, res) => {
+app.post('/posts/:title/:body/:userName', (req, res) => {
 	
-	console.log(store);
 	
-	const obj = JSON.parse(JSON.stringify(store.sessions)); // abc = [Object: null prototype] { id: '123' }
-	var something = 0;
-	console.log(obj);
-  
-	for (let parameter in obj) {
-		
-		something = obj[parameter];
-		something = JSON.parse(something);
 	
-	}
 	
-	var poster = something.user;
+	
+	var poster = req.params.userName;
 	var posterID = "blank";
 	var title = req.params.title;
 	var body = req.params.body;
@@ -290,9 +235,7 @@ app.get('/posts', (req, res) => {
 });
 
 app.get('/LogOut', (req, res) => {
-  store.clear((err) => {
-	console.log("session cleared");	
-	})
+  
   req.session.destroy((err) => {
   res.redirect('/') // will always fire after session is destroyed
 	})
@@ -309,7 +252,7 @@ app.get('/funky', (req, res) => {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-   res.sendFile('public/pages/IrohHomePage', { root : __dirname});
+   res.sendFile('public/pages/IrohHomePage.html', { root : __dirname});
   //next(createError(404));
 });
 
