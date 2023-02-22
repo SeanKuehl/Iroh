@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Set this to the main language of your site -->
+<head>
+    <meta charset="utf-8">
+
+    <title>Iroh</title>
+
+    <!-- Enter a brief description of your page -->
+    <meta name="description" content="Welcome to the Iroh blog site!">
+
+<style>
+
+h1 {
+  color: black
+
+}
+
+
+
+body {
+  background-color:rgb(255, 255, 255);"
+
+}
+
+button {
+	background-color: #87C9F6;	<!-- blue -->
+	border: none;
+	color: white;
+	text-align: center;
+	border-radius: 12px;
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+
+}
+
+p {
+  font-size: 25px;
+  font-family: "Trebuchet MS", sans-serif;
+  color: black;
+
+}
+
+
+
+
+</style>
+
+<script type="text/javascript">
+	function GoToSignUp(){
+
+
+		const Http = new XMLHttpRequest();
+		const url='http://127.0.0.1:3000/SignUp;
+		Http.onreadystatechange = function () {
+		  if (Http.readyState === 4) {
+			
+			//alert(Http.response);
+		  }
+	  
+		}
+		Http.open("GET", url);
+		Http.send();
+
+		
+	}
+
+</script>
+    
+</head>
+<body>
+
+
+
+
+
+
+<!-- this is the title and paragraph that will introduce me and what the website has to offer-->
+<div align="center" style="background-color:rgb(52, 152, 219); height: 200px;">
+<h1> Iroh </h1>
+<a href="http://localhost:3000/SignUp">
+<button> Sign Up </button>
+</a>
+
+<a href="http://localhost:3000/LogIn">
+<button> Log In </button>
+</a>
+</div>
+
+
+
+
+<div align = "center" >
+
+<h1> What's Iroh? </h1>
+<p style="text-align: justify; width: 800px;"> Iroh is an online knowledge sharing community where all are welcome. Share and learn experiences in everything from coding to cooking. If you're looking for an open place to share and find knowledge, then Iroh is the right place!</p>
+
+</div>
+
+
+<div align = "center">
+
+<h1> How did Iroh come to be? </h1>
+<p style="text-align: justify; width: 800px;"> Iroh is founded and maintained by me, Sean. I'm a computer science student interested in web development and technologies. This interest lead me to develop Iroh, which hopefully can serve as an effective resume project as well as online community.</p>
+
+
+
+
+<footer style="color: black;text-align:center;">&copy; Copyright Iroh 2023</footer>
+
+
+</body>
+</html>

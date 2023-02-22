@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Set this to the main language of your site -->
+<head>
+    <meta charset="utf-8">
+
+    <title>Iroh</title>
+
+    <!-- Enter a brief description of your page -->
+    <meta name="description" content="Welcome to the Iroh blog site!">
+
+<style>
+
+h1 {
+  color: black
+
+}
+
+
+
+body {
+  background-color:rgb(255, 255, 255);"
+
+}
+
+button {
+	background-color: #87C9F6;	<!-- blue -->
+	border: none;
+	color: white;
+	text-align: center;
+	border-radius: 12px;
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+
+}
+
+p {
+  font-size: 25px;
+  font-family: "Trebuchet MS", sans-serif;
+  color: black;
+
+}
+
+
+
+
+</style>
+
+<script type="text/javascript">
+	function handleIt() {
+        
+		var userName = document.getElementById("Uname").value;
+		var password = document.getElementById("password").value;
+		var userNameOrPasswordInvalid = false;
+		
+		
+		//username must be all letters
+		for (let i = 0; i<userName.length;i++){
+			if (Boolean(userName.charAt(i).match(/[a-zA-Z]/)) == false && userName.charAt(i) != " "){
+				//it's invalid, non letter character, inform user
+				userNameOrPasswordInvalid = true;
+			}
+		}
+		
+		//password must be at least 12 long, 
+		//have at least 1 capital and at least 1 special character or number
+		var specialCharacters = "~!@#$%^&*-+=':;|";
+		var numbers = "1234567890";
+		
+		var minimumPasswordLength = 12;
+		var containsSpecialOrNumber = false;
+		var containsCapital = false;
+		
+		if (password.length >= minimumPasswordLength){
+			//it has a valid length
+		}
+		else {
+			userNameOrPasswordInvalid = true;
+		}
+		
+		for (let i = 0; i<password.length;i++){
+		
+			if (Boolean(password.charAt(i).match(/[a-zA-Z]/)) == true){
+				if (password.charAt(i) == password.charAt(i).toUpperCase()){
+					//it's an uppercase letter
+					containsCapital = true;
+				}
+				
+			}
+			else {
+				if (specialCharacters.indexOf(password.charAt(i)) != -1 || numbers.indexOf(password.charAt(i)) != -1){
+					//it's a special character or number
+					containsSpecialOrNumber = true;
+				}
+				
+			}
+		
+		
+		}
+		
+		
+		if (containsCapital == true && containsSpecialOrNumber == true){
+			//password needs are satisfied
+			if (userNameOrPasswordInvalid == false){
+				alert("username and password are valid, creating user...");
+				CreateNewUser(userName, password);
+				
+			}
+			else {
+				//either username or password are invalid, alert user 
+				alert("username or password are invalid");
+				
+			}
+		}
+		
+		
+      }
+	  
+	  function CreateNewUser(userName, password){
+		console.log(userName);
+		console.log(password);
+		alert("can we do this");
+		const Http = new XMLHttpRequest();
+		
+		const url='http://127.0.0.1:3000/createNewUser/'+userName+'/'+password;
+		
+		Http.onreadystatechange = function () {
+		  if (Http.readyState === 4) {
+			alert(Http.response);
+			var res = Http.response;
+			if (res == "Success"){
+				GoToMainPage();
+			}
+		  }
+	  
+		}
+		Http.open("GET", url);
+		Http.send();
+		alert("request should have been made");
+
+		
+	}
+	
+	function GoToMainPage(){
+		
+		
+		window.location.assign('http://localhost:3000/MainPage');
+			
+		
+	}
+
+
+
+</script>
+  
+
+</head>
+<body>
+
+
+<a href="http://localhost:3000/">
+<button>Back</button>
+</a>
+
+
+
+<!-- this is the title and paragraph that will introduce me and what the website has to offer-->
+<br><br><br><br><br>
+<div align="center" style="background-color:rgb(52, 152, 219); height: 400px;">
+<h1 style="font-size: 60px"> Sign Up </h1>
+
+
+<p> Usernames are a-zA-Z only and passwords must be at least 12 characters long, <br> and contain a capital and a special character </p>
+
+
+ <form>
+  <label style="font-size: 40px" for="Uname">Username:</label>
+  <input type="text" id="Uname" name="username"><br><br>
+  <label style="font-size: 40px" for="password">Password:</label>
+  <input type="text" id="password" name="password"><br><br>
+</form> 
+<button style="background-color: #87C9F6; border: none; font-size: 40px; color: white; text-align: center; border-radius: 12px;" onClick="handleIt()">Submit</button>
+
+
+</div>
+
+  
+
+
+
+
+
+<footer style="color: black;text-align:center;">&copy; Copyright Iroh 2023</footer>
+
+
+</body>
+</html>

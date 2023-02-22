@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Set this to the main language of your site -->
+<head>
+    <meta charset="utf-8">
+
+    <title>Iroh</title>
+
+    <!-- Enter a brief description of your page -->
+    <meta name="description" content="Welcome to the Iroh blog site!">
+
+<style>
+
+h1 {
+  color: black
+
+}
+
+
+
+body {
+  background-color:rgb(255, 255, 255);"
+
+}
+
+button {
+	background-color: #87C9F6;	<!-- blue -->
+	border: none;
+	color: white;
+	text-align: center;
+	border-radius: 12px;
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+
+}
+
+p {
+  font-size: 25px;
+  font-family: "Trebuchet MS", sans-serif;
+  color: black;
+
+}
+
+
+
+
+</style>
+
+
+
+<script type="text/javascript">
+
+	 
+
+	function GetUserName(){
+		var userName = "";
+
+
+		const Http = new XMLHttpRequest();
+		const url='http://127.0.0.1:3000/GetUserName';
+		Http.onreadystatechange = function () {
+		  if (Http.readyState === 4) {
+			alert(Http.response);
+			userName = Http.response;
+			document.getElementById("username").innerHTML = userName;
+			
+		  }
+	  
+		}
+		Http.open("GET", url);
+		Http.send();
+
+		
+	}
+	
+	
+	function GetTopFivePosts(){
+		
+
+
+		const Http = new XMLHttpRequest();
+		const url='http://127.0.0.1:3000/GetMostRecentFivePosts';
+		Http.onreadystatechange = function () {
+		  if (Http.readyState === 4) {
+			
+			
+			var posts = JSON.parse(Http.responseText);
+			PopulatePosts(posts);
+			
+			
+		  }
+	  
+		}
+		Http.open("GET", url);
+		Http.send();
+
+		
+	}
+	
+	function PopulatePosts(posts){
+		document.getElementById("title1").innerHTML = posts[0].title;
+		document.getElementById("poster and date1").innerHTML = "Posted by: "+posts[0].posterName+" on "+posts[0].postDate;
+		document.getElementById("body1").innerHTML = posts[0].body;
+		
+		
+		document.getElementById("title2").innerHTML = posts[1].title;
+		document.getElementById("poster and date2").innerHTML = "Posted by: "+posts[1].posterName+" on "+posts[1].postDate;
+		document.getElementById("body2").innerHTML = posts[1].body;
+		
+		document.getElementById("title3").innerHTML = posts[2].title;
+		document.getElementById("poster and date3").innerHTML = "Posted by: "+posts[2].posterName+" on "+posts[2].postDate;
+		document.getElementById("body3").innerHTML = posts[2].body;
+		
+		document.getElementById("title4").innerHTML = posts[3].title;
+		document.getElementById("poster and date4").innerHTML = "Posted by: "+posts[3].posterName+" on "+posts[3].postDate;
+		document.getElementById("body4").innerHTML = posts[3].body;
+		
+		document.getElementById("title5").innerHTML = posts[4].title;
+		document.getElementById("poster and date5").innerHTML = "Posted by: "+posts[4].posterName+" on "+posts[4].postDate;
+		document.getElementById("body5").innerHTML = posts[4].body;
+	
+	}
+
+</script>
+
+
+
+
+    
+</head>
+<body onload="GetTopFivePosts();">
+
+<div align="center" style="background-color:rgb(52, 152, 219);">
+<!-- "http://localhost:3000/LogIn" -->
+
+<a href="http://localhost:3000/posts">
+<button>Make New Post</button>
+</a>
+
+<a href="http://localhost:3000/LogOut">
+<button>Log Out</button>
+</a>
+
+
+</div>
+
+
+<div align="center" style="overflow: scroll; height: 900px">
+<h1 id="title1"></h1>
+<p id="poster and date1"></p>
+<p id="body1"></p>
+
+<h1 id="title2"></h1>
+<p id="poster and date2"></p>
+<p id="body2"></p>
+
+<h1 id="title3"></h1>
+<p id="poster and date3"></p>
+<p id="body3"></p>
+
+<h1 id="title4"></h1>
+<p id="poster and date4"></p>
+<p id="body4"></p>
+
+<h1 id="title5"></h1>
+<p id="poster and date5"></p>
+<p id="body5"></p>
+</div>
+
+
+    
+  
+
+    
+
+
+
+
+
+
+
+
+<footer style="color: black;text-align:center;">&copy; Copyright Iroh 2023</footer>
+
+
+</body>
+</html>

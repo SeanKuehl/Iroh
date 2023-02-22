@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Set this to the main language of your site -->
+<head>
+    <meta charset="utf-8">
+
+    <title>Iroh</title>
+
+    <!-- Enter a brief description of your page -->
+    <meta name="description" content="Welcome to the Iroh blog site!">
+
+<style>
+
+h1 {
+  color: black
+
+}
+
+
+
+body {
+  background-color:rgb(255, 255, 255);"
+
+}
+
+button {
+	background-color: #87C9F6;	<!-- blue -->
+	border: none;
+	color: white;
+	text-align: center;
+	border-radius: 12px;
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+
+}
+
+p {
+  font-size: 25px;
+  font-family: "Trebuchet MS", sans-serif;
+  color: black;
+
+}
+
+
+
+
+</style>
+
+<script type="text/javascript">
+function CreatePost(){
+		var title = document.getElementById("title").value;
+		var body = document.getElementById("body").value;
+
+
+		const Http = new XMLHttpRequest();
+		const url='http://localhost:3000/posts/'+title+'/'+body;	//will take title and body, date will be done with NOW() in sql query and name is stored session user
+		Http.onreadystatechange = function () {
+		  if (Http.readyState === 4) {
+			
+			
+			alert(Http.response);
+			GoToMainPage();
+			
+			
+			
+			
+			
+		  }
+	  
+		}
+		Http.open("POST", url);
+		Http.send();
+
+		
+	}
+	
+	function GoToMainPage(){
+		
+		
+		window.location.assign('http://localhost:3000/MainPage');
+			
+		
+	}
+	
+</script>
+
+</head>
+<body>
+
+
+<a href="http://localhost:3000/MainPage">
+<button>Back</button>
+</a>
+
+
+
+<!-- this is the title and paragraph that will introduce me and what the website has to offer-->
+<br><br><br><br><br>
+<div align="center" style="background-color:rgb(52, 152, 219); height: 800px;">
+<h1 style="font-size: 60px"> New Post </h1>
+
+
+
+<!-- class Hello extends React.Component {
+  render() {
+    return React.createElement('div', null, `Hello ${this.props.toWhat}`);
+  }
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(React.createElement(Hello, {toWhat: 'World'}, null));
+-->
+
+ <form>
+  <label style="font-size: 20px" for="title">post title:</label>
+  <input type="text" id="title"><br><br>
+  <textarea id="body" name="postbody" rows="25" cols="100" style="height=400px; width=400px;"></textarea><br><br>
+</form> 
+<button style="background-color: #87C9F6; border: none; font-size: 40px; color: white; text-align: center; border-radius: 12px;" onClick="CreatePost()">Submit</button>
+
+
+</div>
+
+  
+
+
+
+
+
+<footer style="color: black;text-align:center;">&copy; Copyright Iroh 2023</footer>
+
+
+</body>
+</html>
