@@ -50,16 +50,14 @@ function Verify(){
 		var userName = document.getElementById("username").value;
 		var userPassword = document.getElementById("password").value;
 
-		console.log(userName);
-		console.log(userPassword);
+		
 
 		const Http = new XMLHttpRequest();
-		const url='http://localhost:3000/LogUserIn/'+userName+'/'+userPassword;	//will take title and body, date will be done with NOW() in sql query and name is stored session user
+		const url='http://localhost:3000/LogUserIn/'+userName+'/'+userPassword;	//will take title and body, date will be done with NOW() in sql query
 		Http.onreadystatechange = function () {
 		  if (Http.readyState === 4) {
 			
-			alert(Http.response);
-			console.log(Http.response);
+			
 			if (Http.response == "Log In Successful"){
 				CreatePost(userName);
 			}
@@ -85,12 +83,12 @@ function CreatePost(userName){
 
 
 		const Http = new XMLHttpRequest();
-		const url='http://localhost:3000/posts/'+title+'/'+body+'/'+userName;	//will take title and body, date will be done with NOW() in sql query and name is stored session user
+		const url='http://localhost:3000/posts/'+title+'/'+body+'/'+userName;	//will take title and body, date will be done with NOW() in sql query
 		Http.onreadystatechange = function () {
 		  if (Http.readyState === 4) {
 			
 			
-			alert("is it here that it's going bad?");
+			
 			alert(Http.response);
 			GoToMainPage();
 			
@@ -127,22 +125,14 @@ function CreatePost(userName){
 
 
 
-<!-- this is the title and paragraph that will introduce me and what the website has to offer-->
+
 <br><br><br><br><br>
 <div align="center" style="background-color:rgb(52, 152, 219); height: 800px;">
 <h1 style="font-size: 60px"> New Post </h1>
 
 
 
-<!-- class Hello extends React.Component {
-  render() {
-    return React.createElement('div', null, `Hello ${this.props.toWhat}`);
-  }
-}
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(React.createElement(Hello, {toWhat: 'World'}, null));
--->
 
  <form>
  <label style="font-size: 20px" for="username">username</label>

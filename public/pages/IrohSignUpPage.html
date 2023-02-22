@@ -115,9 +115,7 @@ p {
       }
 	  
 	  function CreateNewUser(userName, password){
-		console.log(userName);
-		console.log(password);
-		alert("can we do this");
+		
 		const Http = new XMLHttpRequest();
 		
 		const url='http://127.0.0.1:3000/createNewUser/'+userName+'/'+password;
@@ -134,7 +132,7 @@ p {
 		}
 		Http.open("GET", url);
 		Http.send();
-		alert("request should have been made");
+		
 
 		
 	}
@@ -162,7 +160,7 @@ p {
 
 
 
-<!-- this is the title and paragraph that will introduce me and what the website has to offer-->
+
 <br><br><br><br><br>
 <div align="center" style="background-color:rgb(52, 152, 219); height: 400px;">
 <h1 style="font-size: 60px"> Sign Up </h1>
@@ -181,11 +179,6 @@ p {
 
 
 </div>
-
-  
-
-
-
 
 
 <footer style="color: black;text-align:center;">&copy; Copyright Iroh 2023</footer>

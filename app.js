@@ -17,10 +17,7 @@ const connection = mysql.createConnection({
   database: 'Iroh'
 })
 connection.connect()
-//connection.end();
 
-//var indexRouter = require('./routes/index');
-//var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -37,13 +34,12 @@ app.use(cors());
 app.set('trust proxy', 1);
 
 
-//app.use('/', indexRouter);
-//app.use('/users', usersRouter);
+
 
 app.get('/', (req, res) => {
 	
 	
-  //res.sendFile('public/hello.html' , { root : __dirname});
+  
   res.sendFile('public/pages/IrohHomePage.html' , { root : __dirname});
 })
 
@@ -107,7 +103,7 @@ app.get('/LogUserIn/:username/:userpassword', (req, res) => {
 				  
 				  responseToUser = "Log In Successful";
 				  
-				  console.log(userName);
+				  
 				  
 				  res.send(responseToUser).end();
 			  }
@@ -136,38 +132,18 @@ app.get('/LogUserIn/:username/:userpassword', (req, res) => {
 });
 
 app.get('/LogIn', (req, res) => {
-	/*
-  connection.connect()
-	connection.query('SELECT * FROM albums', (err, rows, fields) => {
-	  if (err) throw err
-	  var something = rows[0]
-	  console.log('The solution is: ', something.name)
-	})
 	
-  connection.end()
-  */
   
   res.sendFile('public/pages/IrohLogInPage.html' , { root : __dirname});
 });
 
-/*
-app.get('/users/:userId/books/:bookId', (req, res) => {
-  res.send(req.params)
-})
 
-
-Route path: /user/:userId(\d+)
-Request URL: http://localhost:3000/user/42
-req.params: {"userId": "42"}
-
-*/
 
 app.get('/createNewUser/:userName/:password', (req, res) => {
 	var passedUserName = req.params.userName;
 	var passedPassword = req.params.password;
 	let userNameIsValid = false;
-	console.log(passedUserName);
-	console.log(passedPassword);
+	
 	
 	//check for someone with same username already and don't allow it
 	connection.query('SELECT * FROM irohuser WHERE userName = "'+passedUserName+'";', (err, rows, fields) => {
@@ -205,10 +181,8 @@ app.post('/posts/:title/:body/:userName', (req, res) => {
 	var posterID = "blank";
 	var title = req.params.title;
 	var body = req.params.body;
-	console.log(poster);
-	console.log(posterID);
-	console.log(title);
-	console.log(body);
+	
+	
 	//username should be unique based on signup check, use it to find posterID
 	connection.query('SELECT * FROM irohuser WHERE userName = "'+poster+'";', (err, rows, fields) => {
 		if (err) throw res.send('an sql error occured while getting userID');
@@ -235,7 +209,7 @@ app.get('/posts', (req, res) => {
 });
 
 app.get('/LogOut', (req, res) => {
-  
+  connection.release()
   req.session.destroy((err) => {
   res.redirect('/') // will always fire after session is destroyed
 	})
@@ -244,11 +218,6 @@ app.get('/LogOut', (req, res) => {
 });
 
 
-
-app.get('/funky', (req, res) => {
-  res.sendFile('public/hello.html' , { root : __dirname});
-  
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
